@@ -1,2 +1,18 @@
-# next-study
-next study 学习记录
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
+## Getting Started
+
+First, run the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
+
+# mdx
+    资料：`https://blog.mzh.ren/zh/posts/2024/05/mdx-intro/`
