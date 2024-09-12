@@ -25,3 +25,27 @@ body {
     text-wrap: balance;
   }
 }
+
+.container {
+  max-width: 100%;
+  padding: 40px;
+}
+
+.prose h1 {
+  color: #1a73e8; /* 自定义 h1 标题颜色 */
+}
+
+.prose p {
+  color: #333; /* 自定义段落文本颜色 */
+}
+
+.prose code {
+  /* background-color: #f5f5f5; 自定义代码块背景 */
+  color: #ffffff; /* 自定义代码块字体颜色 */
+  font-size: 16px;
+  font-weight: bolder;
+}
+
+.prose pre {
+  background-color: rgb(146, 211, 170);
+}

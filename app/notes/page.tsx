@@ -11,18 +11,21 @@ import React from 'react';
 import Markdown from 'markdown-to-jsx';
 import fs from 'fs';
 import path from 'path';
-import CodeBlock from '@/component/CodeBlock';
+import CodeBlock from '@/components/CodeBlock';
 
 const NotesPage: React.FC = () => {
   const filePath = path.join(process.cwd(), 'app/notes/notes.md');
   const fileContent = fs.readFileSync(filePath, 'utf8');
 
   return (
-    <div className="prose prose-lg mx-auto">
+    <div className="container prose prose-indigo prose-lg mx-auto bg-gray-100">
       <Markdown  options={{
           overrides: {
             code: {
               component: CodeBlock,
+              props: {
+                className: "bg-red-800 text-white p-4 rounded" // 自定义代码块的样式
+              }
             },
           },
         }}>{fileContent}</Markdown>

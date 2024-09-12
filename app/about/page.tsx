@@ -3,7 +3,9 @@ import { Metadata } from "next";
 export default function page() {
   return (
     <>
-        <div>about page</div>
+        <div className= '	flex justify-center items-center h-screen'>
+          <span className="w-23 border-2 border-solid p-1 border-amber-300">about page</span>
+        </div>
     </>
   )
 }

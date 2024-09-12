@@ -23,15 +23,16 @@ const CodeBlock: React.FC<CodeBlockProps> = ({ children, language }) => {
 
   return (
     <div className="relative">
-      <pre className={`language-${language}`}>
+      <pre className={`language-${language} relative`}>
         <code>{children}</code>
-      </pre>
+     
       <button
         onClick={handleCopy}
-        className="absolute top-2 right-2 p-1 text-sm bg-gray-800 text-white rounded focus:outline-none hover:bg-gray-700"
+        className="absolute top-0 right-2 p-1 text-xl bg-gray-800 text-white rounded focus:outline-none hover:bg-gray-700"
       >
         {copied ? <FiCheck /> : <FiClipboard />}
       </button>
+      </pre>
     </div>
   );
 };
