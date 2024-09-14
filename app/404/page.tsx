@@ -1,5 +1,9 @@
+import { Metadata } from "next";
 import styles from "./index.module.css";
-
+export const metadata: Metadata = {
+  title: '404 - Page Not Found',
+  metadataBase: new URL('https://yourwebsite.com'),
+};
 export default function ErrorPage() {
   return (
     <>

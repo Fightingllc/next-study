@@ -41,6 +41,11 @@
   ],
   ```
 
+## 复制功能
+  ```js
+      await navigator.clipboard.writeText(children);
+  ```
+
 ## Error message
 
 ### "use client"
@@ -51,10 +56,3 @@
 - resolve
 
 要使用像 useState 这样的钩子，你需要确保你的组件在客户端渲染。您可以通过在组件文件的顶部添加 “use client” 指令来实现此目的。
-
-This is a sample note written in markdown.
-
-- Item 1
-- Item 2
-
-**Bold text**

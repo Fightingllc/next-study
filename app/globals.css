@@ -48,4 +48,8 @@ body {
 
 .prose pre {
   background-color: rgb(146, 211, 170);
+  padding: 0 1em;
+}
+.prose li p {
+  color: #d2a41c;
 }

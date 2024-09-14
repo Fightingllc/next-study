@@ -6,6 +6,7 @@ export default function Home() {
   const router = useRouter();
   return (
     <>
+    <div className="container">
       <h2 className="text-2xl font-bold">Home</h2>      
       <p className="text-gray-600">Welcome to Next.js!</p>
       <div className={styles.buttonContainer}>
@@ -34,7 +35,7 @@ export default function Home() {
           <span className={styles.blob}></span>
         </button>
       </div>
-     
+      </div>
     </>
   );
 }
