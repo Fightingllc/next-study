@@ -1,10 +1,11 @@
+import { Twig } from "@react-symbols/icons";
 import { Metadata } from "next";
 
 export default function page() {
   return (
     <>
         <div className= '	flex justify-center items-center h-screen'>
-          <span className="w-23 border-2 border-solid p-1 border-amber-300">about page</span>
+          <Twig width={600} height={600}/>
         </div>
     </>
   )

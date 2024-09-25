@@ -11,6 +11,7 @@
   "dependencies": {
     "@headlessui/react": "^2.1.8",
     "@heroicons/react": "^2.1.5",
+    "@react-symbols/icons": "^1.2.6",
     "@tailwindcss/typography": "^0.5.15",
     "markdown-to-jsx": "^7.5.0",
     "next": "14.2.9",

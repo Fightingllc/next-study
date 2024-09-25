@@ -46,13 +46,3 @@
       await navigator.clipboard.writeText(children);
   ```
 
-## Error message
-
-### "use client"
-
-× You're importing a component that needs useState. It only works in a Client Component but none of its parents are marked with "use client", so they're Server Components by default.
-│ Learn more: https://nextjs.org/docs/getting-started/react-essentials
-
-- resolve
-
-要使用像 useState 这样的钩子，你需要确保你的组件在客户端渲染。您可以通过在组件文件的顶部添加 “use client” 指令来实现此目的。
