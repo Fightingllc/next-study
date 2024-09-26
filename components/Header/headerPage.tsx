@@ -23,9 +23,9 @@ import {
 
 const products = [
   {
-    name: "Analytics",
+    name: "InputOTP",
     description: "Get a better understanding of your traffic",
-    href: "#",
+    href: "/inputOTP",
     icon: ChartPieIcon,
   },
   {
