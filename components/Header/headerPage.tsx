@@ -65,6 +65,13 @@ const notes = [
     href: "/notes",
     icon: CursorArrowRaysIcon,
   },
+  {
+    name: "questionBank",
+    description: "练习册",
+    href: "/notes/questionBank",
+    icon: SquaresPlusIcon,
+  },
+ 
 
 ];
 
@@ -72,7 +79,6 @@ const callsToAction = [
   { name: "Watch demo", href: "#", icon: PlayCircleIcon },
   { name: "Contact sales", href: "#", icon: PhoneIcon },
 ];
-
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
