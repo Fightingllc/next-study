@@ -71,6 +71,12 @@ const notes = [
     href: "/notes/questionBank",
     icon: SquaresPlusIcon,
   },
+  {
+    name: "demos",
+    description: "一些小Demo",
+    href: "/notes/demos",
+    icon: ArrowPathIcon,
+  },
  
 
 ];

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>文件分片上传</title>
+  </head>
+  <body>
+    <h1>文件分片上传</h1>
+    <input type="file" id="fileInput" />
+    <button id="uploadButton">上传文件</button>
+    <progress id="progressBar" value="0" max="100"></progress>
+    <div id="status"></div>
+
+    <script>
+      uploadButton.addEventListener("click", () => {
+        const file = fileInput.files[0];
+        if (!file) {
+          alert("请先选择一个文件");
+          return;
+        }
+
+        const chunkSize = 1024 * 1024; // 1MB
+        const totalChunks = Math.ceil(file.size / chunkSize);
+        progressBar.max = totalChunks; // 设置进度条最大值
+
+        const uploadChunks = async () => {
+          for (
+            let currentChunk = 0;
+            currentChunk < totalChunks;
+            currentChunk++
+          ) {
+            const start = currentChunk * chunkSize;
+            const end = Math.min(start + chunkSize, file.size);
+            const chunk = file.slice(start, end);
+
+            const formData = new FormData();
+            formData.append("fileChunk", chunk);
+            formData.append("chunkIndex", currentChunk);
+            formData.append("totalChunks", totalChunks);
+
+            try {
+              const response = await fetch("/upload", {
+                // 替换为你的上传接口
+                method: "POST",
+                body: formData,
+              });
+              const data = await response.json();
+
+              if (data.success) {
+                progressBar.value = currentChunk + 1; // 更新进度
+                statusDiv.textContent = `上传进度: ${
+                  currentChunk + 1
+                }/${totalChunks}`;
+              } else {
+                statusDiv.textContent = "上传失败: " + data.message;
+                break; // 退出循环
+              }
+            } catch (error) {
+              statusDiv.textContent = "上传出现错误: " + error;
+              break; // 退出循环
+            }
+          }
+
+          if (progressBar.value == totalChunks) {
+            statusDiv.textContent = "上传完成!";
+          }
+        };
+
+        uploadChunks();
+      });
+    </script>
+  </body>
+</html>

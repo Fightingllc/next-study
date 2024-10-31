@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            cursor: pointer
+        }
+        .box {
+            width: 100px;
+            height: 100px;
+            padding: 10px;
+            margin: 10px;
+            border: 1px solid black;
+            background: darkorange;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <ul>
+            <!-- 盒模型 -->
+            <li>
+                <h3>盒子模型</h3>
+                <div class="box">盒模型</div>
+                <p>标准盒模型：
+                <ul>
+                    <li>width=width</li>
+                    <li>height=height</li>
+                    <li>盒子总宽度 = width + padding + border + margin;</li>
+                    <li>盒子总高度 = height + padding + border + margin</li>
+                </ul>
+                </p>
+                <p>怪异盒模型：
+                <ul>
+                    <li>width=width+padding+border</li>
+                    <li>height=height+padding+border</li>
+                    <li>盒子总宽度 = width + margin;</li>
+                    <li>盒子总高度 = height + margin</li>
+                </ul>
+                </p>
+                <p>box-sizing: content-box|border-box|inherit:
+                <ul>
+                    <li>content-box 默认值，就是标准和模型</li>
+                    <li>border-box，就是怪异盒模型</li>
+                    <li>inherit，继承</li>
+                </ul>
+                </p>
+            </li>
+            <!-- 选择器 -->
+            <li>
+                <h3>伪类&伪元素</h3>
+                <ul>
+                    <li>伪类：active hover focus link first-child</li>
+                    <li>伪元素：before after</li>
+                    <li>继承：字体系列、文本系列</li>
+                    <li>no extend:布局flex 定位 盒模型属性</li>
+                </ul>
+            </li>
+            
+        </ul>
+    </div>
+</body>
+
+</html>
