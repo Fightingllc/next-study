@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #box {
+        width: 100px;
+        height: 100px;
+        background: red;
+
+      }
+    </style>
+  </head>
+  <body>
+    <div id="box"></div>
+    <script>
+      function trackEvent(eventType, details) {
+        console.log(`Event: ${eventType}`, details); // 在控制台打印事件类型和详情 // 上报到服务端。
+      }
+      // 跟踪用户在页面特定区域的停留时间
+      let sectionStartTime = 0; // 记录进入区域的时间
+      const sectionElement = document.getElementById("box"); // 获取目标区域的 DOM 元素
+      // 当用户鼠标进入该区域时触发
+      sectionElement.addEventListener("mouseenter", function () {
+        sectionStartTime = Date.now(); // 记录进入区域的时间戳
+      });
+
+      // 当用户鼠标离开该区域时触发
+      sectionElement.addEventListener("mouseleave", function () {
+        const timeSpent = Date.now() - sectionStartTime; // 计算停留时间
+        trackEvent("time_spent", { section: "box", duration: timeSpent }); // 上报停留时间和区域标识
+      });
+    </script>
+  </body>
+</html>

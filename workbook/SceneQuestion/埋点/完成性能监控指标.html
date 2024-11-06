@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <h2>页面加载耗时监控</h2>
+      <hr />
+      <h2>API调用耗时监控</h2>
+    </div>
+    <script>
+      // 用于记录或发送跟踪数据到服务器的函数
+      function trackEvent(eventType, details) {
+        console.log(`Event: ${eventType}`, details); // 在控制台打印事件类型和详情 // 上报到服务端。
+        fetch("/测试接口地址", {
+          method: "POST",
+          body: JSON.stringify({ eventType, details }),
+        });
+      }
+
+      // 测量页面加载时间
+      window.addEventListener("load", function () {
+        const pageLoadTime = performance.now(); // 获取页面加载完成后的时间（毫秒）
+        trackEvent("page_load", { duration: pageLoadTime }); // 记录页面加载事件，并包含加载耗时数据
+      });
+
+      // 测量 API 调用的耗时
+      function measureApiCallPerformance() {
+        const start = performance.now(); // 记录 API 调用的开始时间
+        fetch("https://jsonplaceholder.typicode.com/posts/3")
+          .then((response) => response.json())
+          .then((data) => {
+            const duration = performance.now() - start; // 计算 API 调用的耗时
+            trackEvent("api_call", {
+              duration: duration,
+              endpoint: "https://jsonplaceholder.typicode.com/posts/3",
+            }); // 记录 API 调用事件，并包含耗时和接口地址
+          });
+      }
+      measureApiCallPerformance()
+    </script>
+  </body>
+</html>
