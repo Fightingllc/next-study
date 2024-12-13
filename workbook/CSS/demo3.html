@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        input {
+            padding: 0;
+            border: none;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            mix-blend-mode: hue;
+            cursor: pointer;
+        }
+
+        img {
+            width: 99vw;
+            /* 视口宽度 */
+            height: 99vh;
+            /* 视口高度 */
+            object-fit: cover;
+            /* 确保图片充满屏幕并裁剪多余部分 */
+        }
+    </style>
+</head>
+
+<body>
+    <input type="color" value="#008c8c">
+    <img src="https://n.sinaimg.cn/sinakd20201015s/340/w690h450/20201015/f65b-kaqzmiv4436570.jpg" alt="">
+</body>
+
+</html>

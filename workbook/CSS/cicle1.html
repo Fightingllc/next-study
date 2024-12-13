@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>动态彩色圆框</title>
+  <style>
+    .el {
+      --elUnit: 500px; /* 圆的大小 */
+      height: var(--elUnit);
+      width: var(--elUnit);
+
+      /* 动态渐变的偏移量 */
+      --gradientOffset: 0;
+
+      /* 动态渐变画布 */
+      --background-canvas: (ctx, geom, properties) => {
+        const radius = 200; // 圆的半径
+        const centerX = geom.width / 2; // 圆心的X坐标
+        const centerY = geom.height / 2; // 圆心的Y坐标
+
+        const offset = parseFloat(properties.get('--gradientOffset').toString()); // 获取当前渐变偏移量
+
+        // 创建动态渐变
+        const gradient = ctx.createLinearGradient(0, 0, geom.width, geom.height);
+        gradient.addColorStop((0 + offset) % 1, "#FF0000"); // 红色
+        gradient.addColorStop((0.5 + offset) % 1, "#00FF00"); // 绿色
+        gradient.addColorStop((1 + offset) % 1, "#0000FF"); // 蓝色
+
+        ctx.strokeStyle = gradient; // 应用渐变作为描边颜色
+        ctx.lineWidth = 10; // 描边宽度
+        ctx.beginPath(); // 开始路径
+        ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI); // 绘制圆形
+        ctx.stroke(); // 描边
+        ctx.closePath(); // 结束路径
+      };
+
+      /* 使用背景画布 */
+      background: paint(background-canvas);
+    }
+  </style>
+</head>
+<body>
+  <div class="el"></div>
+  <script>
+    // 引入 Paint Worklet 模块
+    CSS.paintWorklet.addModule("./arc1.js");
+
+    // 动态更新偏移量
+    let offset = 0;
+    function updateGradientOffset() {
+      offset += 0.01; // 每次增加偏移量
+      document.querySelector('.el').style.setProperty('--gradientOffset', offset);
+      requestAnimationFrame(updateGradientOffset); // 动态刷新
+    }
+
+    // 启动动画
+    updateGradientOffset();
+  </script>
+</body>
+</html>

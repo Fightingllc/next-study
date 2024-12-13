@@ -22,7 +22,6 @@ function binarySearch(nums,target) {
       // 找到目标元素，返回其索引
       return m;
     }
-    
   }
   // 未找到目标元素，返回 -1
   return -1;

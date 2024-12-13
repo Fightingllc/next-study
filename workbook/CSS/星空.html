@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>动态星空</title>
+  <style>
+    /* 页面背景和全屏设置 */
+    body {
+      margin: 0;
+      background: #000; /* 黑色背景表示夜空 */
+      overflow: hidden; /* 防止溢出滚动条 */
+    }
+
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: #fff; /* 星星颜色为白色 */
+      border-radius: 50%; /* 圆形星星 */
+      opacity: 0; /* 初始透明度 */
+      animation: twinkle 2s infinite; /* 闪烁动画 */
+    }
+
+    /* 动态星星的闪烁效果 */
+    @keyframes twinkle {
+      0%, 100% {
+        opacity: 0; /* 开始和结束时星星不可见 */
+      }
+      50% {
+        opacity: 1; /* 中间时星星完全亮 */
+      }
+    }
+  </style>
+</head>
+<body>
+  <script>
+    const numStars = 200; // 星星数量
+    const stars = []; // 存储星星 DOM 元素
+
+    // 随机生成星星的位置和闪烁动画
+    function createStars() {
+      const fragment = document.createDocumentFragment();
+      for (let i = 0; i < numStars; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
+
+        // 随机设置星星的位置
+        const x = Math.random() * window.innerWidth;
+        const y = Math.random() * window.innerHeight;
+
+        // 随机设置星星闪烁的延迟时间
+        const delay = Math.random() * 2; // 闪烁延迟，0-2秒之间
+        const duration = 1 + Math.random(); // 闪烁持续时间，1-2秒之间
+
+        star.style.left = `${x}px`; // 水平位置
+        star.style.top = `${y}px`; // 垂直位置
+        star.style.animationDelay = `${delay}s`; // 动画延迟
+        star.style.animationDuration = `${duration}s`; // 动画持续时间
+
+        fragment.appendChild(star);
+        stars.push(star);
+      }
+      document.body.appendChild(fragment);
+    }
+
+    // 初始化星空
+    createStars();
+
+    // 在窗口大小变化时重新生成星星
+    window.addEventListener('resize', () => {
+      stars.forEach((star) => star.remove());
+      stars.length = 0;
+      createStars();
+    });
+  </script>
+</body>
+</html>
