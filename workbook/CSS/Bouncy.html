@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>碰撞反弹的球</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: #111;
+    }
+    canvas {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <script>
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // 球数组
+    const balls = [];
+
+    // 球类
+    class Ball {
+      constructor(x, y, radius, color, dx, dy) {
+        this.x = x; // 水平位置
+        this.y = y; // 垂直位置
+        this.radius = radius; // 半径
+        this.color = color; // 颜色
+        this.dx = dx; // 水平速度
+        this.dy = dy; // 垂直速度
+        this.gravity = 0.5; // 重力加速度
+        this.friction = 0.8; // 地面反弹衰减
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+        ctx.closePath();
+      }
+
+      update() {
+        this.y += this.dy;
+        this.x += this.dx;
+
+        // 添加重力
+        this.dy += this.gravity;
+
+        // 碰到地面时反弹
+        if (this.y + this.radius > canvas.height) {
+          this.y = canvas.height - this.radius;
+          this.dy *= -this.friction;
+        }
+
+        // 碰到顶部
+        if (this.y - this.radius < 0) {
+          this.y = this.radius;
+          this.dy *= -1;
+        }
+
+        // 碰到左右边界
+        if (this.x + this.radius > canvas.width || this.x - this.radius < 0) {
+          this.dx *= -1;
+        }
+
+        this.draw();
+      }
+
+      // 处理球之间的碰撞
+      resolveCollision(otherBall) {
+        const dx = otherBall.x - this.x;
+        const dy = otherBall.y - this.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance < this.radius + otherBall.radius) {
+          // 碰撞时交换速度方向
+          const tempDx = this.dx;
+          const tempDy = this.dy;
+
+          this.dx = otherBall.dx;
+          this.dy = otherBall.dy;
+
+          otherBall.dx = tempDx;
+          otherBall.dy = tempDy;
+
+          // 调整位置防止重叠
+          const overlap = this.radius + otherBall.radius - distance;
+          const correction = overlap / 2;
+          const angle = Math.atan2(dy, dx);
+
+          this.x -= Math.cos(angle) * correction;
+          this.y -= Math.sin(angle) * correction;
+
+          otherBall.x += Math.cos(angle) * correction;
+          otherBall.y += Math.sin(angle) * correction;
+        }
+      }
+    }
+
+    // 初始化球
+    function initBalls() {
+      const colors = ["#FF5733", "#33FF57", "#3357FF", "#F1C40F", "#9B59B6"];
+      for (let i = 0; i < 20; i++) {
+        const radius = Math.random() * 30 + 25; // 半径 15-35
+        const x = Math.random() * (canvas.width - radius * 2) + radius;
+        const y = Math.random() * (canvas.height - radius * 2) + radius;
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        const dx = (Math.random() - 0.5) * 4; // 水平速度
+        const dy = (Math.random() - 0.5) * 4; // 垂直速度
+        balls.push(new Ball(x, y, radius, color, dx, dy));
+      }
+    }
+
+    // 动画
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      for (let i = 0; i < balls.length; i++) {
+        balls[i].update();
+
+        // 检测球与球的碰撞
+        for (let j = i + 1; j < balls.length; j++) {
+          balls[i].resolveCollision(balls[j]);
+        }
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    // 点击事件让球跳动
+    canvas.addEventListener("click", () => {
+      balls.forEach((ball) => {
+        ball.dy = -15; // 向上跳动
+      });
+    });
+
+    // 初始化并启动
+    initBalls();
+    animate();
+  </script>
+</body>
+</html>

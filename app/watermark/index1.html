@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全屏旋转水印背景</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            overflow: hidden; /* 防止页面滚动 */
+        }
+
+        .watermark-background {
+            position: fixed;
+            top: -50%; /* 向上偏移，确保旋转后不留白 */
+            left: -50%; /* 向左偏移，确保旋转后不留白 */
+            width: 200%; /* 宽度扩展至屏幕2倍，确保旋转后铺满 */
+            height: 200%; /* 高度扩展至屏幕2倍，确保旋转后铺满 */
+            /* background-size: 200px 100px; 设置水印的宽高 */
+            background-repeat: repeat; /* 平铺背景 */
+            transform: rotate(-30deg); /* 旋转整个背景 */
+            transform-origin: center; /* 以中心点为旋转基准 */
+            z-index: -1; /* 确保水印在内容下面 */
+            pointer-events: none; /* 确保水印不影响交互 */
+        }
+
+        .content {
+            position: relative;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 背景容器 -->
+    <div id="watermark" class="watermark-background"></div>
+
+    <!-- 页面内容 -->
+    <div class="content">
+        <h1>文字转图片生成水印</h1>
+        <p>This is an example of using a dynamic image as a watermark background.</p>
+    </div>
+
+    <script>
+        // 创建水印图片的函数
+        function createWatermarkImage(text, options = {}) {
+            const {
+                font = '16px Arial',
+                color = 'rgba(0, 0, 0, 0.1)',
+                angle = 0, // 仅影响单个水印的角度
+                width = 200,
+                height = 100,
+            } = options;
+
+            // 创建 Canvas
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+
+            // 获取 Canvas 绘图上下文
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, width, height); // 清空画布
+            ctx.font = font; // 设置字体
+            ctx.fillStyle = color; // 设置颜色
+            ctx.textAlign = 'center'; // 水平居中
+            ctx.textBaseline = 'middle'; // 垂直居中
+
+            // 绘制文字（角度影响单个水印）
+            ctx.translate(width / 2, height / 2); // 将原点移动到中心
+            ctx.rotate((angle * Math.PI) / 180); // 旋转角度
+            ctx.translate(-width / 2, -height / 2); // 恢复原点
+            ctx.fillText(text, width / 2, height / 2);
+
+            // 返回图片的 Base64 URL
+            return canvas.toDataURL('image/png');
+        }
+
+        // 调用函数生成水印图片
+        const watermarkImage = createWatermarkImage('凌晨', {
+            font: '20px Arial', // 字体大小和样式
+            color: 'rgba(0, 0, 0, 0.1)', // 字体颜色
+            angle: 0, // 文字自身的旋转角度
+            width: 200, // Canvas 宽度
+            height: 100, // Canvas 高度
+        });
+
+        // 设置水印图片作为背景
+        document.getElementById('watermark').style.backgroundImage = `url(${watermarkImage})`;
+    </script>
+</body>
+</html>
