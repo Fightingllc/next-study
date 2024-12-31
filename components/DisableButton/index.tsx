@@ -24,7 +24,7 @@ const DisableButton: React.FC = () => {
 
     return (
         <div>
-            <Button variant="outline" className='bg-pink-500 text-white' onClick={handleClick} disabled={isDisabled}>
+            <Button id='disabledBtn' variant="outline" className='bg-pink-500 text-white' onClick={handleClick} disabled={isDisabled}>
                 {isDisabled ? `剩余时间: ${remainingTime}秒` : '点击禁用'}
             </Button>
         </div>

@@ -11,6 +11,37 @@
     <button id="uploadButton">上传文件</button>
     <progress id="progressBar" value="0" max="100"></progress>
     <div id="status"></div>
+    <p>
+      <h2>专业术语</h2>
+      <ul>
+        <li>断点续传</li>
+        <li>断开重连重传</li>
+        <li>切片上传</li>
+      </ul>
+      <h2>方案</h2>
+      <ul>
+        <li>前端切片 chunk 1024M（1048576k）,500K</li>
+        <li>将切片传递给后端，切的片要取名：hash index</li>
+        <li>后端对切片进行组合</li>
+      </ul>
+
+      <h2>加料</h2>
+      <ul>
+        <li>前端切片：主线程会卡顿，使用web-work 多线程切片，处理完交给主进程发送</li>
+        <li>切完后，将blob，存储到IndexDB，下次用户进来之后，检查一下是都存在未完成上传的切片，有就尝试继续上传</li>
+        <li>websocket，实时通知，和请求序列的控制 wss</li>
+        <li>大文件长传整体设计
+          <ul>
+            <li>组件设计</li>
+            <li>props 事件 状态</li>
+            <li>拖拽上传 多文件选择</li>
+            <li>通用化不同文件的上传，上传统一协议</li>
+          </ul>
+
+        </li>
+        
+      </ul>
+    </p>
 
     <script>
       uploadButton.addEventListener("click", () => {
